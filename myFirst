@@ -1,0 +1,54 @@
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+driver = webdriver.Chrome()
+driver.get("http://automationpractice.pl/index.php")
+driver.maximize_window()
+wait = WebDriverWait(driver, 10)
+
+login_button = wait.until(EC.element_to_be_clickable((By.CLASS_NAME, "login")))
+login_button.click()
+
+email = wait.until(EC.presence_of_element_located((By.ID, "email")))
+password = wait.until(EC.presence_of_element_located((By.ID, "passwd")))
+email.send_keys("your_email@example.com")
+password.send_keys("your_password")
+
+submit_login = wait.until(EC.element_to_be_clickable((By.ID, "SubmitLogin")))
+submit_login.click()
+
+search_box = wait.until(EC.presence_of_element_located((By.ID, "search_query_top")))
+search_box.send_keys("dress")
+search_box.send_keys(Keys.RETURN)
+
+select_item = wait.until(EC.element_to_be_clickable((By.CLASS_NAME, "product_img_link")))
+select_item.click()
+
+add_to_cart = wait.until(EC.element_to_be_clickable((By.NAME, "Submit")))
+add_to_cart.click()
+
+proceed_checkout = wait.until(EC.element_to_be_clickable((By.LINK_TEXT, "Proceed to checkout")))
+proceed_checkout.click()
+
+summary_checkout = wait.until(EC.element_to_be_clickable((By.LINK_TEXT, "Proceed to checkout")))
+summary_checkout.click()
+
+address_checkout = wait.until(EC.element_to_be_clickable((By.NAME, "processAddress")))
+address_checkout.click()
+
+terms_checkbox = wait.until(EC.element_to_be_clickable((By.ID, "cgv")))
+terms_checkbox.click()
+
+shipping_checkout = wait.until(EC.element_to_be_clickable((By.NAME, "processCarrier")))
+shipping_checkout.click()
+
+pay_by_bank = wait.until(EC.element_to_be_clickable((By.CLASS_NAME, "bankwire")))
+pay_by_bank.click()
+
+confirm_order = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[@type='submit']/span[contains(text(),'I confirm my order')]")))
+confirm_order.click()
+
+driver.quit()
